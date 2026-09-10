@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_splash"
+    tools:context=".Menuprin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnVolverMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="start"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Volver"
+            app:tint="@color/text_silver"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="48dp"
+            android:text="Menú Principal"
+            android:textColor="@color/text_silver"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnGestionUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/primary_navy"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="CRUD de Usuarios"
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_menu_edit"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"/>
+
+        <Button
+            android:id="@+id/btnVerSensores"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/primary_navy"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Ver Datos de Sensores"
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_menu_view"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"/>
+
+        <Button
+            android:id="@+id/btnDatosDesarrollador"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:backgroundTint="@color/primary_navy"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Datos del Desarrollador"
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_menu_info_details"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
