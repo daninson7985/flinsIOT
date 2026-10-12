@@ -1,6 +1,5 @@
 package com.example.myappeva
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -47,8 +46,8 @@ class Registrousuario : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (!nombre.matches(Regex("^[a-zA-Z\\s]+$")) || !apellidos.matches(Regex("^[a-zA-Z\\s]+$"))) {
-                showError("Formato inválido", "Nombres y apellidos solo deben contener letras y espacios")
+            if (!nombre.matches(Regex("^[\\p{L}\\s]+$")) || !apellidos.matches(Regex("^[\\p{L}\\s]+$"))) {
+                showError("Formato inválido", "Nombres y apellidos solo deben contener letras y espacios (se permiten tildes y la letra ñ)")
                 return@setOnClickListener
             }
 
@@ -90,9 +89,7 @@ class Registrousuario : AppCompatActivity() {
                     .setContentText("Usuario registrado correctamente")
                     .setConfirmClickListener { sDialog ->
                         sDialog.dismissWithAnimation()
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+                        finish() // Vuelve al menú de gestión de usuarios
                     }
                     .show()
             } else {

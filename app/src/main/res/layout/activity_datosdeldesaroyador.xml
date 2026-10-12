@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
@@ -27,16 +27,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Volver"
+                android:contentDescription="@string/desc_btn_volver"
                 android:padding="8dp"
                 android:src="@android:drawable/ic_menu_revert"
-                app:tint="@color/text_silver"/>
+                app:tint="@color/text_silver" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="Equipo de Desarrollo"
+                android:text="@string/equipo_desarrollo"
                 android:textColor="@color/text_silver"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -58,14 +58,16 @@
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="236dp"
-                        android:layout_height="129dp"
+                        android:layout_width="172dp"
+                        android:layout_height="159dp"
+                        android:contentDescription="@string/desc_avatar_1"
+                        android:scaleType="centerCrop"
                         app:srcCompat="@drawable/flins" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Daninson Parra"
+                        android:text="@string/dev_name_1"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -74,71 +76,193 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="Rol: Full Stack Developer / PM"
-                        android:textColor="#598DE7"
+                        android:text="@string/dev_role_1"
+                        android:textColor="#0D47A1"
                         android:textStyle="italic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
-                        android:text="daninson.parra@inacapmail.cl" />
+                        android:text="@string/dev_email_1"
+                        android:textColor="#333333" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:gravity="center"
-                        android:text="Institución: Inacap / Analista Programador"
+                        android:text="@string/dev_inst_1"
+                        android:textColor="#333333"
                         android:textSize="12sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginEnd="24dp"
                             android:gravity="center"
-                            android:layout_marginEnd="24dp">
+                            android:orientation="vertical">
+
                             <ImageButton
                                 android:id="@+id/btnGithub1"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/desc_github_1"
                                 app:srcCompat="@android:drawable/ic_menu_slideshow"
                                 app:tint="@color/black" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="GitHub"
-                                android:textSize="12sp"
+                                android:text="@string/github"
                                 android:textColor="@color/black"
-                                android:textStyle="bold"/>
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="vertical">
+
                             <ImageButton
                                 android:id="@+id/btnLinkedin1"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/desc_linkedin_1"
                                 app:srcCompat="@android:drawable/ic_menu_share"
-                                app:tint="#0077B5" />
+                                app:tint="@color/black" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="LinkedIn"
+                                android:text="@string/linkedin"
+                                android:textColor="@color/black"
                                 android:textSize="12sp"
-                                android:textColor="#0077B5"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tarjeta Desarrollador 2 (Rodrigo Brizuela) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="172dp"
+                        android:layout_height="159dp"
+                        android:contentDescription="@string/desc_avatar_2"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/varka" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rodrigo Brizuela"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/dev_role_2"
+                        android:textColor="#0D47A1"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="rodrigo.brizuela02@inacapmail.cl"
+                        android:textColor="#333333" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:text="@string/dev_inst_2"
+                        android:textColor="#333333"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:id="@+id/btnGithub2"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/desc_github_2"
+                                app:srcCompat="@android:drawable/ic_menu_slideshow"
+                                app:tint="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/github"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:id="@+id/btnLinkedin2"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/desc_linkedin_2"
+                                app:srcCompat="@android:drawable/ic_menu_share"
+                                app:tint="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/linkedin"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -150,7 +274,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="32dp"
-                android:alpha="0.3"
+                android:contentDescription="@string/desc_logo"
                 app:srcCompat="@drawable/logo_final" />
 
         </LinearLayout>

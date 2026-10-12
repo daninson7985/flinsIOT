@@ -9,13 +9,16 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         private const val DATABASE_NAME = "UsuariosDB"
-        private const val DATABASE_VERSION = 7
+        private const val DATABASE_VERSION = 8
         private const val TABLE_NAME = "usuarios"
         private const val COLUMN_ID = "id"
         private const val COLUMN_NOMBRE = "nombre"
         private const val COLUMN_APELLIDOS = "apellidos"
         private const val COLUMN_EMAIL = "email"
         private const val COLUMN_PASSWORD = "password"
+        private const val COLUMN_IS_BLOCKED = "is_blocked"
+        private const val COLUMN_RECOVERY_CODE = "recovery_code"
+        private const val COLUMN_CODE_TIMESTAMP = "code_timestamp"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -24,7 +27,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$COLUMN_NOMBRE TEXT, " +
                 "$COLUMN_APELLIDOS TEXT, " +
                 "$COLUMN_EMAIL TEXT UNIQUE, " +
-                "$COLUMN_PASSWORD TEXT)")
+                "$COLUMN_PASSWORD TEXT, " +
+                "$COLUMN_IS_BLOCKED INTEGER DEFAULT 0, " +
+                "$COLUMN_RECOVERY_CODE TEXT, " +
+                "$COLUMN_CODE_TIMESTAMP INTEGER)")
         db?.execSQL(createTable)
         
         // Insertar solo 2 personajes de Genshin Impact para simplificar
@@ -43,6 +49,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 put(COLUMN_APELLIDOS, char.second)
                 put(COLUMN_EMAIL, char.third)
                 put(COLUMN_PASSWORD, "Genshin123!") // Contraseña robusta por defecto
+                put(COLUMN_IS_BLOCKED, 0)
             }
             db?.insert(TABLE_NAME, null, values)
         }
@@ -60,6 +67,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         values.put(COLUMN_APELLIDOS, user.apellidos)
         values.put(COLUMN_EMAIL, user.email)
         values.put(COLUMN_PASSWORD, user.password)
+        values.put(COLUMN_IS_BLOCKED, 0)
         
         val result = db.insert(TABLE_NAME, null, values)
         db.close()
@@ -109,11 +117,74 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun checkUser(email: String, password: String): Boolean {
         val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_EMAIL = ? AND $COLUMN_PASSWORD = ?", arrayOf(email, password))
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_EMAIL = ? AND $COLUMN_PASSWORD = ? AND $COLUMN_IS_BLOCKED = 0", arrayOf(email, password))
         val exists = cursor.count > 0
         cursor.close()
         db.close()
         return exists
+    }
+
+    fun isUserBlocked(email: String): Boolean {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT $COLUMN_IS_BLOCKED FROM $TABLE_NAME WHERE $COLUMN_EMAIL = ?", arrayOf(email))
+        var blocked = false
+        if (cursor.moveToFirst()) {
+            blocked = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_BLOCKED)) == 1
+        }
+        cursor.close()
+        db.close()
+        return blocked
+    }
+
+    fun initiateRecovery(email: String, code: String, timestamp: Long): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_IS_BLOCKED, 1)
+            put(COLUMN_RECOVERY_CODE, code)
+            put(COLUMN_CODE_TIMESTAMP, timestamp)
+        }
+        val rows = db.update(TABLE_NAME, values, "$COLUMN_EMAIL = ?", arrayOf(email))
+        db.close()
+        return rows > 0
+    }
+
+    fun verifyRecoveryCode(email: String, code: String): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT $COLUMN_RECOVERY_CODE, $COLUMN_CODE_TIMESTAMP FROM $TABLE_NAME WHERE $COLUMN_EMAIL = ?", arrayOf(email))
+        if (!cursor.moveToFirst()) {
+            cursor.close()
+            db.close()
+            return 3 // Email not found
+        }
+        val savedCode = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_RECOVERY_CODE))
+        val timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_CODE_TIMESTAMP))
+        cursor.close()
+        db.close()
+
+        if (savedCode != code) {
+            return 2 // Invalid code
+        }
+
+        val currentTime = System.currentTimeMillis()
+        val diff = currentTime - timestamp
+        if (diff > 60000) { // 1 minute = 60,000 ms
+            return 1 // Expired
+        }
+
+        return 0 // Success
+    }
+
+    fun updatePasswordAndUnblock(email: String, newPassword: String): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_PASSWORD, newPassword)
+            put(COLUMN_IS_BLOCKED, 0)
+            putNull(COLUMN_RECOVERY_CODE)
+            putNull(COLUMN_CODE_TIMESTAMP)
+        }
+        val rows = db.update(TABLE_NAME, values, "$COLUMN_EMAIL = ?", arrayOf(email))
+        db.close()
+        return rows > 0
     }
 
     fun isEmailExists(email: String): Boolean {

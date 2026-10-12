@@ -39,31 +39,94 @@
                 android:layout_marginBottom="32dp"
                 android:textColor="@color/text_silver"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <!-- Sección 1: Ingresar correo -->
+            <LinearLayout
+                android:id="@+id/layoutEmailSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Correo electrónico"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="2dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmailRecuperar"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:background="@color/white"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="Correo electrónico"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="2dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <Button
-                android:id="@+id/btnRecuperar"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmailRecuperar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/black"
+                        android:background="@color/white"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnRecuperar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enviar Código"
+                    android:backgroundTint="@color/primary_navy"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+            </LinearLayout>
+
+            <!-- Sección 2: Ingresar código y temporizador -->
+            <LinearLayout
+                android:id="@+id/layoutCodeSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Recuperar"
-                android:backgroundTint="@color/primary_navy"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"/>
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiempo restante: 01:00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#D32F2F"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingrese código de 4 dígitos"
+                    app:boxStrokeColor="@color/black"
+                    app:boxStrokeWidth="2dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCodigoRecuperacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:textColor="@color/black"
+                        android:background="@color/white"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnVerificarCodigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Verificar Código"
+                    android:backgroundTint="@color/primary_navy"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnReenviarCodigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reenviar Código"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:textColor="@color/primary_navy"/>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

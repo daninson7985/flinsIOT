@@ -55,8 +55,8 @@ class Modificarusuarios : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (!nombre.matches(Regex("^[a-zA-Z\\s]+$")) || !apellidos.matches(Regex("^[a-zA-Z\\s]+$"))) {
-                showError("Formato inválido", "Nombres y apellidos solo deben contener letras y espacios")
+            if (!nombre.matches(Regex("^[\\p{L}\\s]+$")) || !apellidos.matches(Regex("^[\\p{L}\\s]+$"))) {
+                showError("Formato inválido", "Nombres y apellidos solo deben contener letras y espacios (se permiten tildes y la letra ñ)")
                 return@setOnClickListener
             }
 

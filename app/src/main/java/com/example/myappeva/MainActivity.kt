@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Botón Ingresar
         btnIngresar.setOnClickListener {
             val usuario = etUsuario.text.toString().trim()
-            val password = etPassword.text.toString() // quitamos trim() para permitir espacios en pass si los hay, aunque usualmente se usa trim
+            val password = etPassword.text.toString()
 
             if (usuario.isEmpty() || password.isEmpty()) {
                 SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -67,10 +67,17 @@ class MainActivity : AppCompatActivity() {
                     }
                     .show()
             } else {
-                SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Error de autenticación")
-                    .setContentText("Usuario o contraseña incorrectos")
-                    .show()
+                if (dbHelper.isEmailExists(usuario) && dbHelper.isUserBlocked(usuario)) {
+                    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Cuenta bloqueada")
+                        .setContentText("Su cuenta está bloqueada temporalmente debido a un proceso de recuperación de contraseña en curso.")
+                        .show()
+                } else {
+                    SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Error de autenticación")
+                        .setContentText("Usuario o contraseña incorrectos")
+                        .show()
+                }
             }
         }
 

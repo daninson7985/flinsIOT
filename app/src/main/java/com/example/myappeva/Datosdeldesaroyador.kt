@@ -26,7 +26,7 @@ class Datosdeldesaroyador : AppCompatActivity() {
             finish()
         }
 
-        // Configurar botones de redes sociales
+        // Configurar botones de redes sociales - Desarrollador 1
         val btnGithub = findViewById<ImageButton>(R.id.btnGithub1)
         val btnLinkedin = findViewById<ImageButton>(R.id.btnLinkedin1)
 
@@ -35,6 +35,18 @@ class Datosdeldesaroyador : AppCompatActivity() {
         }
 
         btnLinkedin.setOnClickListener {
+            openUrl("https://cl.linkedin.com/")
+        }
+
+        // Configurar botones de redes sociales - Desarrollador 2
+        val btnGithub2 = findViewById<ImageButton>(R.id.btnGithub2)
+        val btnLinkedin2 = findViewById<ImageButton>(R.id.btnLinkedin2)
+
+        btnGithub2.setOnClickListener {
+            openUrl("https://github.com/RBLInacap")
+        }
+
+        btnLinkedin2.setOnClickListener {
             openUrl("https://cl.linkedin.com/")
         }
     }

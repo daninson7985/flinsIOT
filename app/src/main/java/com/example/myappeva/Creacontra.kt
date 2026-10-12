@@ -11,6 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 
 class Creacontra : AppCompatActivity() {
+
+    private lateinit var dbHelper: DatabaseHelper
+    private var userEmail: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,6 +25,9 @@ class Creacontra : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        dbHelper = DatabaseHelper(this)
+        userEmail = intent.getStringExtra("email") ?: ""
 
         findViewById<ImageButton>(R.id.btnVolverCrea).setOnClickListener {
             finish()
@@ -49,15 +56,26 @@ class Creacontra : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Éxito
-            SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("¡Éxito!")
-                .setContentText("Contraseña actualizada correctamente")
-                .setConfirmClickListener { sDialog ->
-                    sDialog.dismissWithAnimation()
-                    finish() // Cierra la actividad
-                }
-                .show()
+            if (userEmail.isEmpty()) {
+                showError("Error", "No se encontró el correo del usuario. Reinicie el proceso de recuperación.")
+                return@setOnClickListener
+            }
+
+            // Guardar nueva contraseña y reactivar/desbloquear la cuenta en la BD
+            val success = dbHelper.updatePasswordAndUnblock(userEmail, password)
+
+            if (success) {
+                SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("¡Éxito!")
+                    .setContentText("Contraseña actualizada correctamente. Su cuenta ha sido reactivada. Ya puede iniciar sesión.")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                        finish() // Cierra la actividad y vuelve al login
+                    }
+                    .show()
+            } else {
+                showError("Error", "No se pudo actualizar la contraseña en la base de datos.")
+            }
         }
     }
 
