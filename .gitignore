@@ -1,5 +1,7 @@
 *.iml
 .gradle
+.idea/
+.kotlin/
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -8,8 +10,13 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+/build/
+/app/build/
+**/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.log
 local.properties
